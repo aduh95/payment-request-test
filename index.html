@@ -81,13 +81,13 @@
       if (window.ApplePaySession) {
         // Remove text from button to let Apple default button
         const payBtn = document.querySelector("button");
-        payBtn.innerText = "";
         if (ApplePaySession.canMakePayments()) {
+          payBtn.innerText = "";
           payBtn.style.setProperty("-webkit-appearance", "-apple-pay-button");
         } else {
           const warnMessage = document.createElement("em");
           warnMessage.appendChild(
-            document.createTextNode("Apple Pay is not available.")
+            document.createTextNode("No supported Apple Pay card.")
           );
           payBtn.disabled = true;
 

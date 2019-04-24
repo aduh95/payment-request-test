@@ -39,7 +39,7 @@
             <input
               type="text"
               name="currency"
-              value="USD"
+              placeholder="USD"
               list="currencies"/></label
           ><br />
           <label
@@ -106,7 +106,7 @@
           // Every click on the checkout button should use a new instance of PaymentRequest
           // object, because PaymentRequest.show() can be called only once per instance.
           e.preventDefault();
-          const currency = this.elements.namedItem("currency").value;
+          const currency = this.elements.namedItem("currency").value || "USD";
 
           const request = new PaymentRequest(
             [
@@ -229,6 +229,9 @@
     </script>
 
     <datalist id="currencies">
+      <option value="USD">United States dollar</option>
+      <option value="EUR">Euro</option>
+      <option value="GBP">Pound sterling</option>
       <option value="AED">United Arab Emirates dirham</option>
       <option value="AFN">Afghan afghani</option>
       <option value="ALL">Albanian lek</option>
@@ -277,10 +280,8 @@
       <option value="EGP">Egyptian pound</option>
       <option value="ERN">Eritrean nakfa</option>
       <option value="ETB">Ethiopian birr</option>
-      <option value="EUR">Euro</option>
       <option value="FJD">Fiji dollar</option>
       <option value="FKP">Falkland Islands pound</option>
-      <option value="GBP">Pound sterling</option>
       <option value="GEL">Georgian lari</option>
       <option value="GHS">Ghanaian cedi</option>
       <option value="GIP">Gibraltar pound</option>
@@ -379,7 +380,6 @@
       <option value="TZS">Tanzanian shilling</option>
       <option value="UAH">Ukrainian hryvnia</option>
       <option value="UGX">Ugandan shilling</option>
-      <option value="USD">United States dollar</option>
       <option value="USN">United States dollar (next day) (funds code)</option>
       <option value="UYI"
         >Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)</option

@@ -81,9 +81,21 @@
       const successPanel = document.getElementById("success");
       const legacyPanel = document.getElementById("legacy");
 
-      if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
+      if (window.ApplePaySession) {
         // Remove text from button to let Apple default button
-        document.querySelector("button").innerText = "";
+        const payBtn = document.querySelector("button");
+        payBtn.innerText = "";
+        if (!ApplePaySession.canMakePayments()) {
+          const warnMessage = document.createElement("em");
+          warnMessage.appendChild(
+            document.createTextNode(
+              "Apple Pay is not available from this navigator - please try with Safari"
+            )
+          );
+          payBtn.disabled = true;
+
+          payBtn.parentElement.insertBefore(warnMessage);
+        }
       }
 
       // Feature detection

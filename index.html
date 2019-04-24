@@ -12,7 +12,7 @@
       code {
         white-space: pre-wrap;
       }
-      input[type="submit"] {
+      button {
         -webkit-appearance: -apple-pay-button;
       }
     </style>
@@ -56,7 +56,7 @@
           <label
             ><input type="checkbox" name="Shipping" /> Request Shipping</label
           ><br />
-          <input type="submit" />
+          <button type="submit">Checkout</button>
         </p>
       </form>
     </div>
@@ -80,6 +80,11 @@
       const introPanel = document.getElementById("intro");
       const successPanel = document.getElementById("success");
       const legacyPanel = document.getElementById("legacy");
+
+      if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
+        // Remove text from button to let Apple default button
+        document.querySelector("button").innerText = "";
+      }
 
       // Feature detection
       if (window.PaymentRequest) {
@@ -153,6 +158,15 @@
               requestShipping: this.elements.namedItem("Shipping").checked,
             }
           );
+
+          request.onmerchantvalidation = function({ complete, validationURL }) {
+            introPanel.innerHTML =
+              "<strong>Merchant requires back-end validation</strong><br>Sorry this is a front-end only demo.<br><em>validationURL: <code></code></em>";
+            introPanel.lastChild.lastChild.appendChild(
+              document.createTextNode(validationURL)
+            );
+            setTimeout(() => complete("null"), 3000);
+          };
 
           request
             .canMakePayment()

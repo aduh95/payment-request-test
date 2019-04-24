@@ -83,7 +83,7 @@
         const payBtn = document.querySelector("button");
         payBtn.innerText = "";
         if (ApplePaySession.canMakePayments()) {
-          payBtn.style.setProperty("-webkit-appearance", "-apple-pay-button;");
+          payBtn.style.setProperty("-webkit-appearance", "-apple-pay-button");
         } else {
           const warnMessage = document.createElement("em");
           warnMessage.appendChild(

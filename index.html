@@ -12,6 +12,9 @@
       code {
         white-space: pre-wrap;
       }
+      button {
+        -webkit-appearance: -apple-pay-button;
+      }
     </style>
   </head>
   <body>
@@ -292,6 +295,20 @@
                 data: {
                   supportedNetworks: ["visa", "mastercard"],
                   supportedTypes: ["debit", "credit"],
+                },
+              },
+              {
+                supportedMethods: "https://apple.com/apple-pay",
+                data: {
+                  version: 3,
+                  merchantIdentifier: "org.webkit.demo",
+                  merchantCapabilities: [
+                    "supports3DS",
+                    "supportsCredit",
+                    "supportsDebit",
+                  ],
+                  supportedNetworks: ["amex", "discover", "masterCard", "visa"],
+                  countryCode: "US",
                 },
               },
             ],

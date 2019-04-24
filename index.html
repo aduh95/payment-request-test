@@ -12,9 +12,6 @@
       code {
         white-space: pre-wrap;
       }
-      button {
-        -webkit-appearance: -apple-pay-button;
-      }
     </style>
   </head>
   <body>
@@ -85,16 +82,20 @@
         // Remove text from button to let Apple default button
         const payBtn = document.querySelector("button");
         payBtn.innerText = "";
-        if (!ApplePaySession.canMakePayments()) {
+        if (ApplePaySession.canMakePayments()) {
+          payBtn.style.setProperty("-webkit-appearance", "-apple-pay-button;");
+        } else {
           const warnMessage = document.createElement("em");
           warnMessage.appendChild(
-            document.createTextNode(
-              "Apple Pay is not available from this navigator - please try with Safari"
-            )
+            document.createTextNode("Apple Pay is not available.")
           );
           payBtn.disabled = true;
 
-          payBtn.parentElement.insertBefore(warnMessage);
+          payBtn.parentElement.insertBefore(warnMessage, payBtn);
+          payBtn.parentElement.insertBefore(
+            document.createElement("br"),
+            payBtn
+          );
         }
       }
 
